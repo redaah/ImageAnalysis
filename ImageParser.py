@@ -2,19 +2,23 @@
 from google.cloud import bigquery
 import os
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/Rafael/Desktop/Temp/bigquerytest-2e2156128650.json'
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/Rafael/Desktop/Temp/bigquerytest-2e2156128650.json'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/Users/rafa/Documents/Thesis/ImageAnalysis/Authentication/MyPython-b4f57d70838f.json'
 
-# Instantiates a client
-bigquery_client = bigquery.Client()
+#My Variables
+MyProject='bigquery-public-data'
+MyDataset='the_met'
+MyTable='images'
 
-# The name for the new dataset
-dataset_id = 'my_new_dataset'
+#References
+client = bigquery.Client(project=MyProject)
+dataset_ref = client.dataset(MyDataset)
+table_ref = dataset_ref.table(MyTable)
 
-# Prepares a reference to the new dataset
-dataset_ref = bigquery_client.dataset(dataset_id)
-dataset = bigquery.Dataset(dataset_ref)
 
-# Creates the new dataset
-dataset = bigquery_client.create_dataset(dataset)
+table = client.get_table(table_ref)  # API Request
 
-print('Dataset {} created.'.format(dataset.dataset_id))
+# View table properties
+print(table.schema)
+print(table.description)
+print(table.num_rows)
