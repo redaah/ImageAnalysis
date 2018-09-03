@@ -26,3 +26,6 @@ if __name__=='__main__':
     for blob in blobs:
         print(blob.name)
         blob.download_to_filename(MyFolder + blob.name.replace('/', '_'))
+
+
+
