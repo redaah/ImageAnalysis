@@ -1,10 +1,19 @@
 from google.cloud import storage
-client = storage.Client()
+import os
+
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/Rafael/PycharmProjects/ImageAnalysis/Authentication/MyPython-b4f57d70838f.json'
+MyProject='bigquery-public-data'
+prefix='10871/'
+delimiter=''
+
+client = storage.Client(project=MyProject)
 # https://console.cloud.google.com/storage/browser/[bucket-id]/
-bucket = client.get_bucket('bucket-id-here')
+bucket = client.get_bucket('gcs-public-data--met')
 # Then do other things...
-blob = bucket.get_blob('remote/path/to/file.txt')
-print(blob.download_as_string())
-blob.upload_from_string('New contents!')
-blob2 = bucket.blob('remote/path/storage.txt')
-blob2.upload_from_filename(filename='/local/path.txt')
+blobs = bucket.list_blobs(prefix=prefix, delimiter=delimiter)
+
+for blob in blobs:
+    print(blob.name)
+
+i=1
