@@ -1,7 +1,7 @@
 # Imports the Google Cloud client library
 from google.cloud import bigquery
 import os
-
+import cloudstorage
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/Rafael/PycharmProjects/ImageAnalysis/Authentication/MyPython-b4f57d70838f.json'
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='/Users/rafa/Documents/Thesis/ImageAnalysis/Authentication/MyPython-b4f57d70838f.json'
 

@@ -4,16 +4,18 @@ import os
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]='C:/Users/Rafael/PycharmProjects/ImageAnalysis/Authentication/MyPython-b4f57d70838f.json'
 MyProject='bigquery-public-data'
-prefix='10871/'
-delimiter=''
+MyBucket='gcs-public-data--met'
+#blob_name='10871/0.jpg'
+#delimiter=''
 
-client = storage.Client(project=MyProject)
-# https://console.cloud.google.com/storage/browser/[bucket-id]/
-bucket = client.get_bucket('gcs-public-data--met')
-# Then do other things...
-blobs = bucket.list_blobs(prefix=prefix, delimiter=delimiter)
+def ImageDownload(blob_name, folder):
+    client = storage.Client(project=MyProject)
+    # https://console.cloud.google.com/storage/browser/[bucket-id]/
+    bucket = client.get_bucket(MyBucket)
 
-for blob in blobs:
-    print(blob.name)
+    blob=bucket.blob(blob_name)
+    blob.download_to_filename(folder+blob_name.replace('/', '_'))
 
-i=1
+
+if __name__=='__main__':
+    ImageDownload('10871/0.jpg','C:/Users/Rafael/PycharmProjects/ImageAnalysis/Images/')
